@@ -1,0 +1,15 @@
+{
+  "name": "nodejs",
+  "version": "0.0.0",
+  "description": "nodejs test module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kim ilsik",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4",
+    "johnny-five": "^0.11.3"
+  }
+}
