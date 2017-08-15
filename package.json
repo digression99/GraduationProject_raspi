@@ -4,12 +4,18 @@
   "description": "nodejs test module",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "author": "kim ilsik",
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.4",
-    "johnny-five": "^0.11.3"
+    "johnny-five": "^0.11.3",
+    "npm": "^5.3.0",
+    "raspi": "^4.0.0",
+    "raspi-gpio": "^4.0.2",
+    "raspi-io": "^8.0.1",
+    "raspicam": "^0.2.14"
   }
 }
