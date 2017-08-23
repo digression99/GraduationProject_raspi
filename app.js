@@ -6,12 +6,15 @@ var RaspiCam = require('raspicam');
 var request = require('request');
 var fs = require('fs');
 var path = require('path');
+var base64 = require('node-base64-image');
 
 const app = express();
 
 var headers = {
 	'Content-Type' : 'application/json'
 };
+
+var images = [];
 
 var opts = {
 	width : 600,
@@ -41,13 +44,30 @@ camera.on('exit', function() {
 			var date = new Date();
 			var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
 			console.log('data set');
+			//console.log('first base64 : ', new Buffer(img).toString('base64'));
+			var imgBase64 = new Buffer(img.toString('base64'));
+			images.push(imgBase64);
+			console.log('added to images, length : ', images.length);
+
+			base64.encode(path.join(__dirname, 'images/camera.jpg'), {local : true}, function(err, result) {
+				if (err) console.log(err);
+				else {
+					//console.log("base64 : ", result);
+					imgBase64 = result;
+					console.log('successfully transformed to base64.');
+					//console.log(imgBase64);
+				}
+			});
+
+
+			//console.log('img base 64 : ', imgBase64);
 			
 			var formData = {
 				img : imgJson,
 				date : nowDate
 			};
 			/*
-			request.post({url:'http://pseudocoder.rocks/api.face', formData : formData},
+			request.post({url:'http://pseudocoder.rocks/api/face', formData : formData},
 				function(err, httpResponse, body) {
 					if (err) console.log(err);
 					else {console.log('response : ', body);
@@ -71,7 +91,7 @@ camera.on('exit', function() {
 				else {
 					if (res.statusCode === 200) {
 						console.log('successfully trasmitted.');
-						console.log(JSON.stringify(body));
+						//console.log(JSON.stringify(body));
 					} else {
 						console.log('something wrong.', res.statusCode);
 					}
@@ -96,7 +116,17 @@ board.on('ready', function() {
 
 app.get('/', function(req, res) {
 	camera.start();
-	res.send('Hello, raspberry pi!, camera started.');
+
+	var page = `<h1>Images</h1>`;
+
+	for (var i = 0; i < images.length; ++i) {
+		page += (`<img src="data:image/jpg;base64,` + images[i] + `" />`);
+	}
+	console.log(page);
+	res.send(page);
+	//res.send(`<h1>Hi!</h1>`);
+
+	//res.send('Hello, raspberry pi!, camera started.');
 });
 
 app.listen(3000, function(req, res) {
