@@ -45,6 +45,7 @@ var opts = {
 var camera = new RaspiCam(opts);
 
 // camera event handler.
+// Can I put all kinds of event to camera?
 camera.on('exit', function() {
 	camera.stop();
 	console.log('camera stopped.');
@@ -56,7 +57,7 @@ camera.on('exit', function() {
 			var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
 
 			// image encoded to base64.
-			var imgBase64 = new Buffer(img.toString('base64'));
+			var imgBase64 = new Buffer(img).toString('base64');
 
 			// add the almost 100 images if it has the correct faces.
 			images.push(imgBase64);
@@ -101,6 +102,8 @@ board.on('ready', function() {
 	console.log('board is ready!');
 	(new five.Led('P1-7')).strobe();
 });
+
+app.get('/camera')
 
 app.get('/camera-on', function(req, res) {
 	camera.start();
