@@ -102,7 +102,29 @@ board.on('ready', function() {
 	(new five.Led('P1-7')).strobe();
 });
 
-app.get('/camera')
+app.get('/cluster', function(req, res) {
+
+    var options = {
+        url : 'http://www.pseudocoder.rocks/api/cluster',
+        method : 'GET',
+        headers : headers,
+        json : true
+    };
+
+    request(options, function(err, res, body) {
+        console.log('in request for clustering');
+        if (err) console.log(err);
+        else {
+            if (res.statusCode === 200) {
+                console.log('successfully trasmitted.');
+
+                results.push(body.result);
+            } else {
+                console.log('something wrong.', res.statusCode);
+            }
+        }
+    });
+});
 
 app.get('/camera-on', function(req, res) {
 	camera.start();
