@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0bd6c266-1657-46ca-91e7-e2d07a897f51" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.app.js.swp" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -20,10 +19,10 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+            <state relative-caret-position="343">
+              <caret line="43" column="38" lean-forward="false" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
               <folding>
-                <marker date="1503643718000" expanded="true" signature="2838:2860" ph="data:" />
+                <marker date="1503644254000" expanded="true" signature="2868:2890" ph="data:" />
               </folding>
             </state>
           </provider>
@@ -78,11 +77,6 @@
               <item name="GraduationProject_raspi" type="b2602c69:ProjectViewProjectNode" />
               <item name="GraduationProject_raspi" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="GraduationProject_raspi" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GraduationProject_raspi" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -119,12 +113,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1503643649114</updated>
-      <workItem from="1503643651306" duration="67000" />
+      <workItem from="1503643651306" duration="400000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67000" />
+    <option name="totallyTimeSpent" value="400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -162,10 +156,10 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="42" column="36" lean-forward="false" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        <state relative-caret-position="343">
+          <caret line="43" column="38" lean-forward="false" selection-start-line="43" selection-start-column="38" selection-end-line="43" selection-end-column="38" />
           <folding>
-            <marker date="1503643718000" expanded="true" signature="2838:2860" ph="data:" />
+            <marker date="1503644254000" expanded="true" signature="2868:2890" ph="data:" />
           </folding>
         </state>
       </provider>
