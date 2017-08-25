@@ -113,14 +113,20 @@ app.get('/cluster', function(req, res) {
 
     request(options, function(err, res, body) {
         console.log('in request for clustering');
-        if (err) console.log(err);
+        if (err) {
+            console.log(err);
+            res.send(err);
+        }
         else {
             if (res.statusCode === 200) {
                 console.log('successfully trasmitted.');
 
-                results.push(body.result);
+                res.send(body.results);
+
+                //results.push(body.result);
             } else {
-                console.log('something wrong.', res.statusCode);
+                res.send("Something Wrong", res.statusCode);
+                //console.log('something wrong.', res.statusCode);
             }
         }
     });
