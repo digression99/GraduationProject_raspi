@@ -67,7 +67,6 @@ camera.on('exit', function() {
 				img : imgBase64,
 				date : nowDate
 			};
-			
 			var options = {
 				url : 'http://www.pseudocoder.rocks/api/face',
 				method : 'POST',
