@@ -40,6 +40,7 @@ camera.on('exit', function() {
 		if (err) console.log(err);
 		else {
 			console.log('in readFile.');
+			console.log('git test');
 			var imgJson = img.toJSON();
 			var date = new Date();
 			var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
