@@ -1,3 +1,14 @@
+//
+// * This code must be written in ES5.
+//
+//
+//
+//
+//
+//
+//
+//
+
 const express = require('express');
 var Raspi = require('raspi-io');
 const five = require('johnny-five');
@@ -15,6 +26,7 @@ var headers = {
 };
 
 var images = [];
+var results = [];
 
 var opts = {
 	width : 600,
@@ -39,44 +51,21 @@ camera.on('exit', function() {
 	fs.readFile(path.join(__dirname, 'images/camera.jpg'), function(err, img) {
 		if (err) console.log(err);
 		else {
-			console.log('in readFile.');
-			console.log('git test');
-			console.log('git test 2');
-			var imgJson = img.toJSON();
+            // date info generate.
 			var date = new Date();
 			var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
-			console.log('data set');
-			//console.log('first base64 : ', new Buffer(img).toString('base64'));
+
+			// image encoded to base64.
 			var imgBase64 = new Buffer(img.toString('base64'));
+
+			// add the almost 100 images if it has the correct faces.
 			images.push(imgBase64);
 			console.log('added to images, length : ', images.length);
 
-			base64.encode(path.join(__dirname, 'images/camera.jpg'), {local : true}, function(err, result) {
-				if (err) console.log(err);
-				else {
-					//console.log("base64 : ", result);
-					imgBase64 = result;
-					console.log('successfully transformed to base64.');
-					//console.log(imgBase64);
-				}
-			});
-
-
-			//console.log('img base 64 : ', imgBase64);
-			
 			var formData = {
-				img : imgJson,
+				img : imgBase64,
 				date : nowDate
 			};
-			/*
-			request.post({url:'http://pseudocoder.rocks/api/face', formData : formData},
-				function(err, httpResponse, body) {
-					if (err) console.log(err);
-					else {console.log('response : ', body);
-					}
-			});
-			*/
-
 			
 			var options = {
 				url : 'http://www.pseudocoder.rocks/api/face',
@@ -85,24 +74,21 @@ camera.on('exit', function() {
 				json : true,
 				body : formData
 			};
-			
-			console.log('options set');
+
 			request(options, function(err, res, body) {
 				console.log('in request');
 				if (err) console.log(err);
 				else {
 					if (res.statusCode === 200) {
 						console.log('successfully trasmitted.');
-						//console.log(JSON.stringify(body));
+
+						results.push(body.result);
 					} else {
 						console.log('something wrong.', res.statusCode);
 					}
 				}
 			});
-			
-		}		
-
-
+		}
 	});
 });
 
@@ -116,19 +102,18 @@ board.on('ready', function() {
 	(new five.Led('P1-7')).strobe();
 });
 
-app.get('/', function(req, res) {
+app.get('/camera-on', function(req, res) {
 	camera.start();
 
-	var page = `<h1>Images</h1>`;
+	// var page = `<h1>Images</h1>`;
+    //
+	// for (var i = 0; i < images.length; ++i) {
+	// 	page += (`<img src="data:image/jpg;base64,` + images[i] + `" />`);
+	// }
+	// console.log(page);
 
-	for (var i = 0; i < images.length; ++i) {
-		page += (`<img src="data:image/jpg;base64,` + images[i] + `" />`);
-	}
-	console.log(page);
-	res.send(page);
-	//res.send(`<h1>Hi!</h1>`);
-
-	//res.send('Hello, raspberry pi!, camera started.');
+    res.send(results);
+	//res.send(page);
 });
 
 app.listen(3000, function(req, res) {
