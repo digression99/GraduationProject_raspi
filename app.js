@@ -132,6 +132,29 @@ app.get('/cluster', function(req, res) {
     });
 });
 
+app.get('/camera-register', function(req, res) {
+    var opts = {
+        width : 600,
+        height : 420,
+        mode : 'timelapse',
+        awb : 'off',
+        encoding : 'jpg',
+        output : 'images/camera%04d.jpg',
+        q : 50, // quality
+        timeout : 3000, // total shot time.
+        timelapse : 100, // time between every shots.
+        nopreview : true,
+        th : '0:0:0'
+    };
+
+    var camera = new RaspiCam(opts);
+    console.log("camera all set.");
+
+    camera.start();
+
+    res.send('Took the timelapse.');
+});
+
 app.get('/camera-on', function(req, res) {
 	camera.start();
 
@@ -141,6 +164,8 @@ app.get('/camera-on', function(req, res) {
 	// 	page += (`<img src="data:image/jpg;base64,` + images[i] + `" />`);
 	// }
 	// console.log(page);
+
+    //res.send()
 
     res.send(results);
 	//res.send(page);
