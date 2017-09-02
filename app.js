@@ -134,15 +134,15 @@ app.get('/cluster', function(req, res) {
 
 app.get('/camera-register', function(req, res) {
     var opts = {
-        width : 600,
-        height : 420,
+        width : 640,
+        height : 480,
         mode : 'timelapse',
         awb : 'off',
         encoding : 'jpg',
         output : 'images/camera%08d.jpg',
         q : 50, // quality
-        timeout : 4000, // total shot time.
-        timelapse : 200, // time between every shots.
+        timeout : 8000, // total shot time.
+        timelapse : 400, // time between every shots.
         nopreview : true,
         th : '0:0:0'
     };
