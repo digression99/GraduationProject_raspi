@@ -139,10 +139,10 @@ app.get('/camera-register', function(req, res) {
         mode : 'timelapse',
         awb : 'off',
         encoding : 'jpg',
-        output : 'images/camera%04d.jpg',
+        output : 'images/camera%08d.jpg',
         q : 50, // quality
-        timeout : 3000, // total shot time.
-        timelapse : 100, // time between every shots.
+        timeout : 4000, // total shot time.
+        timelapse : 200, // time between every shots.
         nopreview : true,
         th : '0:0:0'
     };
