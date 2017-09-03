@@ -64,7 +64,7 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                 if (filenames[i].match(imgReg)) {
                     var img;
                     try {
-                        img = fs.readFileSync(path.join(__dirname, filenames[i]));
+                        img = fs.readFileSync(path.join(__dirname, 'images/' + filenames[i]));
                     } catch (e) {
                         console.log(e);
                     }
