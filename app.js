@@ -27,69 +27,121 @@ var headers = {
 
 var images = [];
 var results = [];
+var isRegister = false;
 
 var opts = {
-	width : 600,
-	height : 420,
-	mode : 'timelapse',
-	awb : 'off',
-	encoding : 'jpg',
-	output : 'images/camera.jpg',
-	q : 50,
-	timeout : 1000,
-	timelapse : 0,
-	nopreview : true,
-	th : '0:0:0'
+    width : 640,
+    height : 480,
+    mode : 'timelapse',
+    awb : 'off',
+    encoding : 'jpg',
+    output : 'images/camera%08d.jpg',
+    q : 50, // quality
+    timeout : 8000, // total shot time.
+    timelapse : 400, // time between every shots.
+    nopreview : true,
+    th : '0:0:0'
 };
 
 var camera = new RaspiCam(opts);
 
 // camera event handler.
 // Can I put all kinds of event to camera?
-camera.on('exit', function() {
+camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙이는 식으로 해야 될 듯.
 	camera.stop();
 	console.log('camera stopped.');
-	fs.readFile(path.join(__dirname, 'images/camera.jpg'), function(err, img) {
-		if (err) console.log(err);
-		else {
-            // date info generate.
-			var date = new Date();
-			var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
 
-			// image encoded to base64.
-			var imgBase64 = new Buffer(img).toString('base64');
+	if (isRegister) {
+	    isRegister = false;
+        fs.readdir(path.join(__dirname, 'images'), function(err, filenames) {
+            var imgReg = new RegExp(/(.JPG)|(.jpg)/);
+            var date = new Date();
+            var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
+            var imgData = [];
+            // do this in non-async.
+            for(var i = 0; i < filenames.length; ++i) {
+                if (filenames[i].match(imgReg)) {
+                    var img;
+                    try {
+                        img = fs.readFileSync(filename);
+                    } catch (e) {
+                        console.log(e);
+                    }
+                    var imgBase64 = new Buffer(img).toString('base64');
+                    imgData.push(imgBase64);
+                }
+            }
 
-			// add the almost 100 images if it has the correct faces.
-			images.push(imgBase64);
-			console.log('added to images, length : ', images.length);
+            var formData = {
+                imgArr : imgBase64,
+                date : nowDate
+            };
+            var options = {
+                url : 'http://www.pseudocoder.rocks/api/face-register',
+                method : 'POST',
+                headers : headers,
+                json : true,
+                body : formData
+            };
 
-			var formData = {
-				img : imgBase64,
-				date : nowDate
-			};
-			var options = {
-				url : 'http://www.pseudocoder.rocks/api/face',
-				method : 'POST',
-				headers : headers,
-				json : true,
-				body : formData
-			};
+            request(options, function(err, res, body) {
+                console.log('in request');
+                if (err) console.log(err);
+                else {
+                    if (res.statusCode === 200) {
+                        console.log('successfully trasmitted.');
 
-			request(options, function(err, res, body) {
-				console.log('in request');
-				if (err) console.log(err);
-				else {
-					if (res.statusCode === 200) {
-						console.log('successfully trasmitted.');
+                        results.push(body.result);
+                    } else {
+                        console.log('something wrong.', res.statusCode);
+                    }
+                }
+            });
+        });
 
-						results.push(body.result);
-					} else {
-						console.log('something wrong.', res.statusCode);
-					}
-				}
-			});
-		}
-	});
+    } else {
+        fs.readFile(path.join(__dirname, 'images/camera.jpg'), function(err, img) {
+            if (err) console.log(err);
+            else {
+                // date info generate.
+                var date = new Date();
+                var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
+
+                // image encoded to base64.
+                var imgBase64 = new Buffer(img).toString('base64');
+
+                // add the almost 100 images if it has the correct faces.
+                images.push(imgBase64);
+                console.log('added to images, length : ', images.length);
+
+                var formData = {
+                    img : imgBase64,
+                    date : nowDate
+                };
+                var options = {
+                    url : 'http://www.pseudocoder.rocks/api/face',
+                    method : 'POST',
+                    headers : headers,
+                    json : true,
+                    body : formData
+                };
+
+                request(options, function(err, res, body) {
+                    console.log('in request');
+                    if (err) console.log(err);
+                    else {
+                        if (res.statusCode === 200) {
+                            console.log('successfully trasmitted.');
+
+                            results.push(body.result);
+                        } else {
+                            console.log('something wrong.', res.statusCode);
+                        }
+                    }
+                });
+            }
+        });
+    }
 });
 
 // board setting.
@@ -133,26 +185,27 @@ app.get('/cluster', function(req, res) {
 });
 
 app.get('/camera-register', function(req, res) {
-    var opts = {
-        width : 640,
-        height : 480,
-        mode : 'timelapse',
-        awb : 'off',
-        encoding : 'jpg',
-        output : 'images/camera%08d.jpg',
-        q : 50, // quality
-        timeout : 8000, // total shot time.
-        timelapse : 400, // time between every shots.
-        nopreview : true,
-        th : '0:0:0'
-    };
-
-    var camera = new RaspiCam(opts);
-    console.log("camera all set.");
+    // var opts = {
+    //     width : 640,
+    //     height : 480,
+    //     mode : 'timelapse',
+    //     awb : 'off',
+    //     encoding : 'jpg',
+    //     output : 'images/camera%08d.jpg',
+    //     q : 50, // quality
+    //     timeout : 8000, // total shot time.
+    //     timelapse : 400, // time between every shots.
+    //     nopreview : true,
+    //     th : '0:0:0'
+    // };
+    //
+    // var camera = new RaspiCam(opts);
+    // console.log("camera all set.");
 
     camera.start();
 
     res.send('Took the timelapse.');
+    isRegister = true;
 });
 
 app.get('/camera-on', function(req, res) {
