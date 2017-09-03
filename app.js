@@ -54,6 +54,7 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
 	if (isRegister) {
 	    isRegister = false;
         fs.readdir(path.join(__dirname, 'images'), function(err, filenames) {
+            console.log("filenames : ", filenames);
             var imgReg = new RegExp(/(.JPG)|(.jpg)/);
             var date = new Date();
             var nowDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
@@ -63,7 +64,7 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                 if (filenames[i].match(imgReg)) {
                     var img;
                     try {
-                        img = fs.readFileSync(filenames[i]);
+                        img = fs.readFileSync(path.join(__dirname, filenames[i]));
                     } catch (e) {
                         console.log(e);
                     }
