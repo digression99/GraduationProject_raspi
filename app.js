@@ -93,7 +93,8 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                 else {
                     if (res.statusCode === 200) {
                         console.log('successfully trasmitted.');
-                        console.log(res.message);
+                        console.log(res.body);
+                        //console.log(res.message);
 
                         results.push(body.result);
                     } else {
