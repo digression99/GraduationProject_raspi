@@ -70,6 +70,7 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                     }
                     var imgBase64 = new Buffer(img).toString('base64');
                     imgData.push(imgBase64);
+                    console.log("Done, ", i);
                 }
             }
 
@@ -85,8 +86,9 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                 body : formData
             };
 
+            console.log("ready to send...");
             request(options, function(err, res, body) {
-                console.log('in request');
+                console.log('in request...');
                 if (err) console.log(err);
                 else {
                     if (res.statusCode === 200) {
