@@ -146,7 +146,7 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                         if (res.statusCode === 200) {
                             console.log('successfully trasmitted.');
 
-                            //results.push(body.result);
+                            results.push(body.result);
                             //res.send(results);
                         } else {
                             console.log('something wrong.', res.statusCode);
@@ -187,9 +187,9 @@ app.get('/cluster', function(req, res) {
             if (result.statusCode === 200) {
                 console.log('successfully trasmitted.');
 
-                res.send(body.results);
+                //res.send(body.results);
 
-                //results.push(body.result);
+                results.push(body.result);
             } else {
                 res.send("Something Wrong", result.statusCode);
                 //console.log('something wrong.', res.statusCode);
@@ -225,7 +225,6 @@ app.get('/camera-register', function(req, res) {
 app.get('/camera-on', function(req, res) {
 
     //res.send('')
-
     //
 	// camera.start();
     //
@@ -243,10 +242,15 @@ app.get('/camera-on', function(req, res) {
     //
     // //res.send(results);
 	// res.send(page);
-    res.render('index');
+    res.render('index', {results : results});
 });
 
 app.post('/camera-on', function(req, res) {
+    camera.start();
+
+    //res.render('index', {results : results});
+
+
     //res.render('index');
     // es.send('main.html');
     //res.send('/views/main.html');
