@@ -21,6 +21,9 @@ var base64 = require('node-base64-image');
 
 const app = express();
 
+app.use(express.static(path.join(__dirname, 'public'))); // or client
+app.set('views', './views');
+
 var headers = {
 	'Content-Type' : 'application/json'
 };
