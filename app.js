@@ -243,10 +243,11 @@ app.get('/camera-on', function(req, res) {
     //
     // //res.send(results);
 	// res.send(page);
+    res.render('index');
 });
 
 app.post('/camera-on', function(req, res) {
-    res.render('index');
+    //res.render('index');
     // es.send('main.html');
     //res.send('/views/main.html');
 });
