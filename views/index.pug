@@ -10,3 +10,8 @@ html
         ul
             each result in results
                 li= result
+
+        ul
+            each image in images
+                li
+                    img(src='data:image/jpg;base64,#{image}')
