@@ -18,11 +18,16 @@ var request = require('request');
 var fs = require('fs');
 var path = require('path');
 var base64 = require('node-base64-image');
+var bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public'))); // or client
+
+app.set('view engine', 'pug');
 app.set('views', './views');
+
+app.use(express.static(path.join(__dirname, 'public'))); // or client
+app.use(bodyParser.urlencoded({extended:false}));
 
 var headers = {
 	'Content-Type' : 'application/json'
@@ -242,8 +247,10 @@ app.get('/camera-on', function(req, res) {
 });
 
 app.post('/camera-on', function(req, res) {
-    res.send('./views/main.html');
-})
+    res.render('index', {title : "We did it!"});
+    // es.send('main.html');
+    //res.send('/views/main.html');
+});
 
 app.listen(3000, function(req, res) {
 	console.log('server connected on port 3000');
