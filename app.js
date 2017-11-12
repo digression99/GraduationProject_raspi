@@ -22,7 +22,6 @@ var bodyParser = require('body-parser');
 
 const app = express();
 
-
 app.set('view engine', 'pug');
 app.set('views', './views');
 
@@ -247,7 +246,7 @@ app.get('/camera-on', function(req, res) {
 });
 
 app.post('/camera-on', function(req, res) {
-    res.render('index', {title : "We did it!"});
+    res.render('index');
     // es.send('main.html');
     //res.send('/views/main.html');
 });
