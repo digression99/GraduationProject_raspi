@@ -188,6 +188,7 @@ app.get('/cluster', function(req, res) {
                 console.log('successfully trasmitted.');
 
                 //res.send(body.results);
+                console.log(body.result);
 
                 results.push(body.result);
             } else {
@@ -240,13 +241,17 @@ app.get('/camera-on', function(req, res) {
     //
     // //res.send()
     //
+
+
     // //res.send(results);
 	// res.send(page);
     res.render('index', {results : results});
 });
 
 app.post('/camera-on', function(req, res) {
+
     camera.start();
+    res.redirect('/camera-on');
 
     //res.render('index', {results : results});
 
