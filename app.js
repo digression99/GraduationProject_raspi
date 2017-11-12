@@ -129,7 +129,8 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
 
                 var formData = {
                     img : imgBase64,
-                    date : nowDate
+                    date : nowDate,
+                    raspiId : '001'
                 };
                 var options = {
                     url : 'http://www.pseudocoder.rocks/api/face',
