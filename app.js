@@ -50,8 +50,9 @@ var camera = new RaspiCam(opts);
 camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙이는 식으로 해야 될 듯.
 	camera.stop();
 	console.log('camera stopped.');
+	// First, you don't need to differentiate btw register or not.
 
-	if (isRegister) {
+    if (isRegister) {
 	    isRegister = false;
         fs.readdir(path.join(__dirname, 'images'), function(err, filenames) {
             console.log("filenames : ", filenames);
@@ -147,6 +148,8 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
             }
         });
     }
+
+
 });
 
 // board setting.
