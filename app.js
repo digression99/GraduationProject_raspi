@@ -106,7 +106,7 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
         });
 
     } else {
-        fs.readFile(path.join(__dirname, 'images/camera.jpg'), function(err, img) {
+        fs.readFile(path.join(__dirname, 'images/camera00000000.jpg'), function(err, img) {
             if (err) console.log(err);
             else {
                 // date info generate.
@@ -139,7 +139,8 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
                         if (res.statusCode === 200) {
                             console.log('successfully trasmitted.');
 
-                            results.push(body.result);
+                            //results.push(body.result);
+                            //res.send(results);
                         } else {
                             console.log('something wrong.', res.statusCode);
                         }
@@ -148,8 +149,6 @@ camera.on('exit', function() { // 이 function을 따로 빼서, 콜백을 붙�
             }
         });
     }
-
-
 });
 
 // board setting.
@@ -217,20 +216,31 @@ app.get('/camera-register', function(req, res) {
 });
 
 app.get('/camera-on', function(req, res) {
-	camera.start();
 
+    //res.send('')
+
+    //
+	// camera.start();
+    //
 	// var page = `<h1>Images</h1>`;
     //
 	// for (var i = 0; i < images.length; ++i) {
 	// 	page += (`<img src="data:image/jpg;base64,` + images[i] + `" />`);
 	// }
-	// console.log(page);
-
-    //res.send()
-
-    res.send(results);
-	//res.send(page);
+	// page += `<p>
+     //            <div>${results}</div>
+     //        </p>`;
+	// //console.log(page);
+    //
+    // //res.send()
+    //
+    // //res.send(results);
+	// res.send(page);
 });
+
+app.post('/camera-on', function(req, res) {
+    res.send('./views/main.html');
+})
 
 app.listen(3000, function(req, res) {
 	console.log('server connected on port 3000');
