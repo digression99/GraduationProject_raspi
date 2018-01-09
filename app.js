@@ -261,7 +261,7 @@ app.post('/camera-on', function(req, res) {
 });
 
 app.listen(3000, function(req, res) {
-	console.log('server connected on port 3000');
+    console.log('server connected on port 3000');
 });
 
 
