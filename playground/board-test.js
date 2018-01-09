@@ -6,6 +6,11 @@ const board = new five.Board({
     io : new Raspi()
 });
 
+board.on('event-start', function(data) {
+    console.log('event-start!');
+    console.log(data.name);
+});
+
 board.on('ready', function() {
     console.log('board is ready!');
 
@@ -36,6 +41,10 @@ board.on('ready', function() {
     // "down" the button is pressed
     button.on("down", function() {
         console.log("down");
+        board.emit('event-start', {
+            name : "kim"
+        });
+
     });
 
     // "hold" the button is pressed for specified time.
