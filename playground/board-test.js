@@ -21,7 +21,7 @@ board.on('ready', function() {
     let button = new five.Button('P1-13');
     let switchButton = new five.Switch('P1-15');
     let button2 = new five.Button('P1-16');
-    let motion = new five.Motion('P1-18');
+    let motion = new five.Motion('P1-12');
 
     switchButton.isOpened = false;
 
