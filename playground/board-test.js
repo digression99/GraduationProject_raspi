@@ -19,6 +19,7 @@ board.on('ready', function() {
     let digitalLed1 = new five.Led('P1-7');
     let digitalLed2 = new five.Led('P1-11');
     let button = new five.Button('P1-13');
+    let switchButton = new five.Switch('P1-15');
 
     this.repl.inject({
         onLed1 : function() {
@@ -37,8 +38,17 @@ board.on('ready', function() {
             digitalLed2.off();
             console.log('led 2 off');
         },
-        button : button
+        button : button,
+        switchButton : switchButton
     });
+
+    switchButton.on('open', function() {
+        console.log('switch open');
+    })
+
+    switchButton.on('close', function() {
+        console.log('switch close');
+    })
 
     // "down" the button is pressed
     button.on("down", function() {
