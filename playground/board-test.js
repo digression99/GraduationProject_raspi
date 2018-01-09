@@ -11,6 +11,8 @@ board.on('event-start', function(data) {
     console.log(data.name);
 });
 
+
+
 board.on('ready', function() {
     console.log('board is ready!');
 
@@ -44,19 +46,20 @@ board.on('ready', function() {
         board.emit('event-start', {
             name : "kim"
         });
-
+        digitalLed1.toggle();
+        digitalLed2.toggle();
     });
 
     // "hold" the button is pressed for specified time.
     //        defaults to 500ms (1/2 second)
     //        set
     button.on("hold", function() {
-        console.log("hold");
+        // console.log("hold");
     });
 
     // "up" the button is released
     button.on("up", function() {
-        console.log("up");
+        // console.log("up");
     });
 
     // digitalLed1.strobe();
