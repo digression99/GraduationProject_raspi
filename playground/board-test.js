@@ -21,6 +21,8 @@ board.on('ready', function() {
     let button = new five.Button('P1-13');
     let switchButton = new five.Switch('P1-15');
     let button2 = new five.Button('P1-16');
+    let motion = new five.Motion('P1-18');
+
     switchButton.isOpened = false;
 
     this.repl.inject({
@@ -42,7 +44,25 @@ board.on('ready', function() {
         },
         button : button,
         button2 : button2,
-        switchButton : switchButton
+        switchButton : switchButton,
+        motion : motion
+    });
+
+    // "calibrated" occurs once, at the beginning of a session,
+    motion.on("calibrated", function() {
+        console.log("calibrated");
+    });
+
+    // "motionstart" events are fired when the "calibrated"
+    // proximal area is disrupted, generally by some form of movement
+    motion.on("motionstart", function() {
+        console.log("motionstart");
+    });
+
+    // "motionend" events are fired following a "motionstart" event
+    // when no movement has occurred in X ms
+    motion.on("motionend", function() {
+        console.log("motionend");
     });
 
     switchButton.on('open', function() {
