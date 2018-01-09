@@ -8,5 +8,12 @@ const board = new five.Board({
 
 board.on('ready', function() {
     console.log('board is ready!');
-    (new five.Led('P1-7').Led('P1-8')).strobe();
+
+    let digitalLed1 = new five.Led('P1-7');
+    let digitalLed2 = new five.Led('P1-8');
+
+    digitalLed1.strobe();
+    digitalLed2.strobe();
+
+    // (new five.Led('P1-7').Led('P1-8')).strobe();
 });
