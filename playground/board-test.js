@@ -1,4 +1,4 @@
-var Raspi = require('raspi-io');
+let Raspi = require('raspi-io');
 const five = require('johnny-five');
 
 // board setting.
