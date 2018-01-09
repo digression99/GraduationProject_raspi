@@ -20,6 +20,8 @@ board.on('ready', function() {
     let digitalLed2 = new five.Led('P1-11');
     let button = new five.Button('P1-13');
     let switchButton = new five.Switch('P1-15');
+    let button2 = new five.Button('P1-16');
+    switchButton.isOpened = false;
 
     this.repl.inject({
         onLed1 : function() {
@@ -39,15 +41,22 @@ board.on('ready', function() {
             console.log('led 2 off');
         },
         button : button,
+        button2 : button2,
         switchButton : switchButton
     });
 
     switchButton.on('open', function() {
-        console.log('switch open');
+        if (!this.isOpened) {
+            this.isOpened = true;
+            console.log('switch open');
+        }
     })
 
     switchButton.on('close', function() {
-        console.log('switch close');
+        if (this.isOpened) {
+            this.isOpened = false;
+            console.log('switch close');
+        }
     })
 
     // "down" the button is pressed
@@ -70,6 +79,24 @@ board.on('ready', function() {
     // "up" the button is released
     button.on("up", function() {
         // console.log("up");
+    });
+
+    button2.on("down", function() {
+        console.log("button 2 down");
+        digitalLed1.toggle();
+        digitalLed2.toggle();
+    });
+
+    // "hold" the button is pressed for specified time.
+    //        defaults to 500ms (1/2 second)
+    //        set
+    button2.on("hold", function() {
+        console.log("button 2 hold");
+    });
+
+    // "up" the button is released
+    button2.on("up", function() {
+        console.log("button 2 up");
     });
 
     // digitalLed1.strobe();
