@@ -1,6 +1,9 @@
-# node_modules
 
+#node modules
 node_modules/
 
 # idea
 .idea
+
+#image folders
+/images
