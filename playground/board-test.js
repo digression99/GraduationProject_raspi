@@ -11,22 +11,7 @@ board.on('ready', function() {
 
     let digitalLed1 = new five.Led('P1-7');
     let digitalLed2 = new five.Led('P1-11');
-    let   // "down" the button is pressed
-        button.on("down", function() {
-        console.log("down");
-    });
-
-    // "hold" the button is pressed for specified time.
-    //        defaults to 500ms (1/2 second)
-    //        set
-    button.on("hold", function() {
-        console.log("hold");
-    });
-
-    // "up" the button is released
-    button.on("up", function() {
-        console.log("up");
-    });button = new five.Button('P-13');
+    let button = new five.Button('P1-13');
 
     this.repl.inject({
         onLed1 : function() {
