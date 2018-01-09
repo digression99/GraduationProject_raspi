@@ -16,15 +16,19 @@ board.on('ready', function() {
     this.repl.inject({
         onLed1 : function() {
             digitalLed1.on();
+            console.log('led 1 on');
         },
         onLed2 : function() {
             digitalLed2.on();
+            console.log('led 2 on');
         },
         offLed1 : function() {
             digitalLed1.off();
+            console.log('led 1 off');
         },
         offLed2 : function() {
             digitalLed2.off();
+            console.log('led 2 off');
         },
         button : button
     });
