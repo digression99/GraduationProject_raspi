@@ -10,7 +10,7 @@ board.on('ready', function() {
     console.log('board is ready!');
 
     let digitalLed1 = new five.Led('P1-7');
-    let digitalLed2 = new five.Led('P1-8');
+    let digitalLed2 = new five.Led('P1-11');
 
     digitalLed1.strobe();
     digitalLed2.strobe();
