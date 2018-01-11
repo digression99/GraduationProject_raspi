@@ -3,5 +3,6 @@
   "index" : 0,
   "timeoutObj" : null,
   "startedAt" : null,
-  "endedAt" : null
+  "endedAt" : null,
+  "isStarted" : false
 }
