@@ -64,7 +64,7 @@ class UI {
 
     onSelect() {
         if (this.state.node.children) {
-            this.state.node = this.state.node.children[select];
+            this.state.node = this.state.node.children[this.state.select];
         }
     }
 
