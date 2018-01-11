@@ -53,7 +53,8 @@ class UI {
     constructor(rootNode) {
         this.state = {
             node : rootNode,
-            select : 0
+            select : 0,
+            isStarted : false
         };
     }
 
@@ -81,7 +82,7 @@ class UI {
     }
 
     onAction() {
-        if (this.state.node.func)
+        if (this.state.node)
             this.state.node.func();
     }
 }
