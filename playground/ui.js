@@ -69,8 +69,10 @@ module.exports = (todos, setting) => {
         }
 
         onAction() {
-            if (this.state.node)
+            if (this.state.node) {
                 this.state.node.func();
+                this.state.node = this.state.node.parent;
+            }
         }
     }
 
