@@ -1,7 +1,7 @@
 let Raspi = require('raspi-io');
 const five = require('johnny-five');
 
-let ui = require('./ui')();
+let ui = require('./ui');
 let select = 0;
 
 // board setting.
@@ -16,6 +16,23 @@ board.on('event-start', function(data) {
 
 board.on('button-click', (data) => {
     console.log(data.action);
+    switch (data.action) {
+        case 'left':
+        case 'right':
+            const offset = data.action === 'left' ? -1 : 1;
+            ui.changeSelect(offset);
+            break;
+        case 'select':
+            ui.onSelect();
+            break;
+        case 'back':
+            ui.onBack();
+            break;
+        default:
+            console.log('error');
+            break;
+    }
+    ui.onAction();
 });
 
 // board.on('event-exit', function() {
@@ -28,7 +45,7 @@ board.on('exit', function() {
 
 board.on('ready', function() {
     console.log('board is ready!');
-    console.log(ui);
+    ui.onAction();
 
     // let digitalLed1 = new five.Led('P1-7');
     // let digitalLed2 = new five.Led('P1-11');
