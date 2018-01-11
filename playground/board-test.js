@@ -22,19 +22,62 @@ board.on('exit', function() {
 board.on('ready', function() {
     console.log('board is ready!');
 
-    let digitalLed1 = new five.Led('P1-7');
-    let digitalLed2 = new five.Led('P1-11');
-    let button = new five.Button('P1-13');
-    let switchButton = new five.Switch('P1-15');
+    // let digitalLed1 = new five.Led('P1-7');
+    // let digitalLed2 = new five.Led('P1-11');
+    let button1 = new five.Button('P1-13');
+    // let switchButton = new five.Switch('P1-15');
     let button2 = new five.Button('P1-16');
     // let motion = new five.Motion('P1-12');
 
     let button3 = new five.Button('P1-37');
-    let button4 = new five.Button('P1-31');
-    let button5 = new five.Button({
-        pin : 'P1-18',
-        holdtime : 1000
+    // let button4 = new five.Button('P1-31');
+    // let button5 = new five.Button({
+    //     pin : 'P1-18',
+    //     holdtime : 1000
+    // });
+
+    this.repl.inject({
+        button1,
+        button2,
+        button3
     });
+
+    button1.on('down', () => {
+        console.log('button 1 down');
+
+    });
+    button1.on('hold', () => {
+        console.log('button 1 hold');
+    });
+    button1.on('up', () => {
+        console.log('button 1 up');
+    });
+
+    button2.on('down', () => {
+        console.log('button 2 down');
+    });
+    button2.on('hold', () => {
+        console.log('button 2 hold');
+    });
+    button2.on('up', () => {
+        console.log('button 2 up');
+    });
+
+    button3.on('down', () => {
+        console.log('button 3 down');
+    });
+    button3.on('hold', () => {
+        console.log('button 3 hold');
+    });
+    button3.on('up', () => {
+        console.log('button 3 up');
+    });
+
+
+
+
+
+    /*
 
     // let analogInput = new five.Light(`P1-12`);
 
@@ -184,4 +227,6 @@ board.on('ready', function() {
     // digitalLed2.blink();
 
     // (new five.Led('P1-7').Led('P1-8')).strobe();
+     */
+
 });
