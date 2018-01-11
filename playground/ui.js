@@ -42,7 +42,7 @@ const changeTask = () => {
 };
 
 class UINode {
-    constructor(func = undefined, children = [], parent = this) {
+    constructor(func = undefined, children = undefined, parent = this) {
         this.func = func;
         this.children = children;
         this.parent = parent;
@@ -120,6 +120,8 @@ let startNode = new UINode(startPomo, undefined, root); // leaf
 let changeTaskNode = new UINode(changeTask, undefined, root); // leaf
 let changeTimeNode = new UINode(changeTime, undefined, root); // leaf
 let exitNode = new UINode(onExit, undefined, root);
+
+console.log('startnode children : ', startNode.children);
 
 root.children.push(startNode);
 root.children.push(changeTaskNode);
