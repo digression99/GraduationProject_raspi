@@ -32,7 +32,7 @@ board.on('ready', function() {
     let button3 = new five.Button('P1-37');
     let button4 = new five.Button('P1-31');
 
-    let analogInput = new five.Light(`P1-12`);
+    // let analogInput = new five.Light(`P1-12`);
 
     switchButton.isOpened = false;
 
@@ -58,7 +58,7 @@ board.on('ready', function() {
         switchButton : switchButton,
         button3 : button3,
         button4 : button4,
-        analogInput : analogInput
+        // analogInput : analogInput
         // motion : motion
     });
 
@@ -153,14 +153,14 @@ board.on('ready', function() {
         console.log("button 3 up");
     });
 
-    let isAnaloged = false;
-    analogInput.on('data', function() {
-        if (!isAnaloged) {
-            console.log('data is coming!');
-            console.log(this);
-            isAnaloged = true;
-        }
-    })
+    // let isAnaloged = false;
+    // analogInput.on('data', function() {
+    //     if (!isAnaloged) {
+    //         console.log('data is coming!');
+    //         console.log(this);
+    //         isAnaloged = true;
+    //     }
+    // })
 
 
     // digitalLed1.strobe();
