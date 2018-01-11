@@ -88,20 +88,40 @@ class UI {
 }
 
 const printMenu = (menu) => menu.forEach((m, idx) => console.log(`${idx + 1} : ${m}`));
+//
+// const getRootNode = () => {
+//     let root = new UINode(() => printMenu(mainMenu));
+//     let startNode = new UINode(startPomo, [], root); // leaf
+//     let changeTaskNode = new UINode(changeTask, [], root); // leaf
+//     let changeTimeNode = new UINode(changeTime, [], root); // leaf
+//     let exitNode = new UINode(onExit, [], root);
+//
+//     root.children.push(startNode);
+//     root.children.push(changeTaskNode);
+//     root.children.push(changeTimeNode);
+//     root.children.push(exitNode);
+//     //
+//     // return new UINode(
+//     //     () => printMenu(mainMenu),
+//     //     [
+//     //         new UINode(startPomo, [])
+//     //
+//     //     ]
+//     //
+//     //
+//     //
+//     // );
+// };
 
-const getRootNode = () => {
-    let root = new UINode(() => printMenu(mainMenu));
-    let startNode = new UINode(startPomo, [], root); // leaf
-    let changeTaskNode = new UINode(changeTask, [], root); // leaf
-    let changeTimeNode = new UINode(changeTime, [], root); // leaf
-    let exitNode = new UINode(onExit, [], root);
+let root = new UINode(() => printMenu(mainMenu));
+let startNode = new UINode(startPomo, [], root); // leaf
+let changeTaskNode = new UINode(changeTask, [], root); // leaf
+let changeTimeNode = new UINode(changeTime, [], root); // leaf
+let exitNode = new UINode(onExit, [], root);
 
-    root.children.push(startNode);
-    root.children.push(changeTaskNode);
-    root.children.push(changeTimeNode);
-    root.children.push(exitNode);
+root.children.push(startNode);
+root.children.push(changeTaskNode);
+root.children.push(changeTimeNode);
+root.children.push(exitNode);
 
-    return root;
-};
-
-module.exports = new UI(getRootNode());
+module.exports = new UI(root);
