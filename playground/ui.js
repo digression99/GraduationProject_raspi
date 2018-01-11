@@ -34,7 +34,7 @@ const onExit = () => {
 
 const changeTime = (offset, setting) => {
     console.log('changing time!');
-    setting.time += offset;
+    // setting.time += offset;
 };
 
 const changeTask = () => {
