@@ -29,6 +29,11 @@ board.on('ready', function() {
     let button2 = new five.Button('P1-16');
     // let motion = new five.Motion('P1-12');
 
+    let button3 = new five.Button('P1-37');
+    let button4 = new five.Button('P1-31');
+
+    let analogInput = new five.Analog('P1-12');
+
     switchButton.isOpened = false;
 
     this.repl.inject({
@@ -51,6 +56,9 @@ board.on('ready', function() {
         button : button,
         button2 : button2,
         switchButton : switchButton,
+        button3 : button3,
+        button4 : button4,
+        analogInput : analogInput
         // motion : motion
     });
 
@@ -76,14 +84,14 @@ board.on('ready', function() {
             this.isOpened = true;
             console.log('switch open');
         }
-    })
+    });
 
     switchButton.on('close', function() {
         if (this.isOpened) {
             this.isOpened = false;
             console.log('switch close');
         }
-    })
+    });
 
     // "down" the button is pressed
     button.on("down", function() {
@@ -124,6 +132,36 @@ board.on('ready', function() {
     button2.on("up", function() {
         console.log("button 2 up");
     });
+
+    button3.on("down", function() {
+        console.log("button 3 down");
+    });
+    button3.on("hold", function() {
+        console.log("button 3 hold");
+    });
+    button3.on("up", function() {
+        console.log("button 3 up");
+    });
+
+    button4.on("down", function() {
+        console.log("button 3 down");
+    });
+    button4.on("hold", function() {
+        console.log("button 3 hold");
+    });
+    button4.on("up", function() {
+        console.log("button 3 up");
+    });
+
+    let isAnaloged = false;
+    analogInput.on('data', function() {
+        if (!isAnaloged) {
+            console.log('data is coming!');
+            console.log(this);
+            isAnaloged = true;
+        }
+    })
+
 
     // digitalLed1.strobe();
     // digitalLed2.strobe();
