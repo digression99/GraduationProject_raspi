@@ -6,5 +6,5 @@ const port = new SerialPort('/dev/ttyACM0', {
 });
 
 port.on('data', (data) =>{
-    console.log(data);
+    console.log(data.toString('utf8'));
 });
