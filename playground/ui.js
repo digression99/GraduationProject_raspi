@@ -115,7 +115,7 @@ const printMenu = (menu) => menu.forEach((m, idx) => console.log(`${idx + 1} : $
 //     // );
 // };
 
-let root = new UINode(() => printMenu(mainMenu));
+let root = new UINode(() => printMenu(mainMenu), []);
 let startNode = new UINode(startPomo, undefined, root); // leaf
 let changeTaskNode = new UINode(changeTask, undefined, root); // leaf
 let changeTimeNode = new UINode(changeTime, undefined, root); // leaf
