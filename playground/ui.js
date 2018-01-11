@@ -81,7 +81,8 @@ class UI {
     }
 
     onAction() {
-        this.state.node.func();
+        if (this.state.node.func)
+            this.state.node.func();
     }
 }
 
