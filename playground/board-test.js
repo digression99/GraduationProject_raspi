@@ -3,6 +3,7 @@ const five = require('johnny-five');
 
 let ui = require('./ui');
 let select = 0;
+let isHold = false;
 
 // board setting.
 const board = new five.Board({
@@ -82,18 +83,25 @@ board.on('ready', function() {
 
     button2.on('down', () => {
         // console.log('button 2 down');
-        board.emit('button-click', {
-            action : 'select'
-        });
     });
     button2.on('hold', () => {
         // console.log('button 2 hold');
         // board.emit('button-click', {
         //     action : ''
         // });
+        isHold = true;
     });
     button2.on('up', () => {
-        // console.log('button 2 up');
+        if (isHold) {
+            isHold = false;
+            board.emit('button-click', {
+                action : 'back'
+            });
+        } else {
+            board.emit('button-click', {
+                action : 'select'
+            });
+        }
     });
 
     button3.on('down', () => {
