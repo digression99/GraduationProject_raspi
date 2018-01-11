@@ -58,8 +58,12 @@ class UI {
     }
 
     changeSelect(offset) {
-        if (!(this.state.select >= 0 || this.state.select < this.state.node.children.length)) return;
-        this.state.select += offset;
+        const nextSelect = this.state.select + offset;
+        if (nextSelect < 0 || nextSelect >= this.state.node.children.length) return;
+        this.state.select = nextSelect;
+
+        // if (!(this.state.select > 0 || this.state.select < this.state.node.children.length - 1)) return;
+        // this.state.select += offset;
     }
 
     onSelect() {
