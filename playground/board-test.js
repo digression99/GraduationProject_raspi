@@ -31,7 +31,10 @@ board.on('ready', function() {
 
     let button3 = new five.Button('P1-37');
     let button4 = new five.Button('P1-31');
-    let button5 = new five.Button('P1-18');
+    let button5 = new five.Button({
+        pin : 'P1-18',
+        holdtime : 1000
+    });
 
     // let analogInput = new five.Light(`P1-12`);
 
@@ -158,7 +161,7 @@ board.on('ready', function() {
     button5.on("down", function() {
         console.log("button 5 down");
     });
-    button5.on("hold", 1000, function() {
+    button5.on("hold", function() {
         console.log("button 5 hold");
     });
     button5.on("up", function() {
