@@ -16,7 +16,6 @@ board.on('event-start', function(data) {
 });
 
 board.on('button-click', (data) => {
-    console.log(data.action);
     switch (data.action) {
         case 'left':
         case 'right':
@@ -34,6 +33,7 @@ board.on('button-click', (data) => {
             break;
     }
     ui.onAction();
+    console.log(ui.state.select);
 });
 
 // board.on('event-exit', function() {

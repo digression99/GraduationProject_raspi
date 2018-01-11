@@ -65,11 +65,15 @@ class UI {
     onSelect() {
         if (this.state.node.children) {
             this.state.node = this.state.node.children[this.state.select];
+            this.state.select = 0;
+        } else {
+            // console.log()
         }
     }
 
     onBack() {
         this.state.node = this.state.node.parent;
+        this.state.select = 0;
     }
 
     onAction() {
