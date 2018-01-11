@@ -32,7 +32,7 @@ board.on('ready', function() {
     let button3 = new five.Button('P1-37');
     let button4 = new five.Button('P1-31');
 
-    let analogInput = new five.Analog('P1-12');
+    let analogInput = new five.Light(`P1-12`);
 
     switchButton.isOpened = false;
 
