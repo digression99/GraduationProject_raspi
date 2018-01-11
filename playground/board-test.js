@@ -29,8 +29,8 @@ board.on('ready', function() {
     let button2 = new five.Button('P1-16');
     // let motion = new five.Motion('P1-12');
 
-    let button3 = new five.Button('P1-37');
-    // let button4 = new five.Button('P1-31');
+    let button3 = new five.Button('P1-31');
+    // let button4 = new five.Button('P1-37');
     // let button5 = new five.Button({
     //     pin : 'P1-18',
     //     holdtime : 1000
