@@ -6,6 +6,11 @@ let todos, setting;
 let select = 0;
 let isHold = false;
 
+// loop 도 됨.
+// board.loop(500, function() {
+//     strobe.write(state ^= 0x01);
+// });
+
 initCli()
     .then(({initTodos, initSetting}) => {
         todos = initTodos;
@@ -69,10 +74,18 @@ initCli()
             //     holdtime : 1000
             // });
 
+            let soundSensor = new five.Pin({
+                pin : 'P1-22',
+                mode : 0,
+                type : 'digital'
+
+            });
+
             this.repl.inject({
                 button1,
                 button2,
-                button3
+                button3,
+                soundSensor
             });
 
             button1.on('down', () => {
@@ -122,6 +135,9 @@ initCli()
             });
             button3.on('up', () => {
                 // console.log('button 3 up');
+            });
+            soundSensor.read((err, val) => {
+                console.log(val);
             });
 
 

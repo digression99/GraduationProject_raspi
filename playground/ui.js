@@ -55,11 +55,11 @@ module.exports = (todos, setting) => {
 
         onSelect() {
             if (this.state.node.children) {
-                console.log('NOT nothing!');
+                // console.log('NOT nothing!');
                 this.state.node = this.state.node.children[this.state.select];
                 this.state.select = 0;
             } else {
-                console.log('nothing!');
+                // console.log('nothing!');
             }
         }
 
@@ -76,7 +76,11 @@ module.exports = (todos, setting) => {
         }
     }
 
-    const printMenu = (menu) => menu.forEach((m, idx) => console.log(`${idx + 1} : ${m}`));
+    const printMenu = (menu) => {
+        let message = '';
+        menu.forEach((m, idx) => message += `${idx + 1} : ${m} `);
+        console.log(message, `now selecting : `);
+    };
 
     let root = new UINode(() => printMenu(mainMenu), []);
     let startNode = new UINode(pomoAction, undefined, root); // leaf
