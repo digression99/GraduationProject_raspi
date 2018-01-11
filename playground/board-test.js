@@ -1,6 +1,9 @@
 let Raspi = require('raspi-io');
 const five = require('johnny-five');
 
+let ui = require('./ui')();
+let select = 0;
+
 // board setting.
 const board = new five.Board({
     io : new Raspi()
@@ -9,6 +12,10 @@ const board = new five.Board({
 board.on('event-start', function(data) {
     console.log('event-start!');
     console.log(data.name);
+});
+
+board.on('button-click', (data) => {
+    console.log(data.action);
 });
 
 // board.on('event-exit', function() {
@@ -21,6 +28,7 @@ board.on('exit', function() {
 
 board.on('ready', function() {
     console.log('board is ready!');
+    console.log(ui);
 
     // let digitalLed1 = new five.Led('P1-7');
     // let digitalLed2 = new five.Led('P1-11');
@@ -43,34 +51,45 @@ board.on('ready', function() {
     });
 
     button1.on('down', () => {
-        console.log('button 1 down');
-
+        // console.log('button 1 down');
+        board.emit('button-click', {
+            action : 'left'
+        });
     });
     button1.on('hold', () => {
-        console.log('button 1 hold');
+        // console.log('button 1 hold');
     });
     button1.on('up', () => {
-        console.log('button 1 up');
+        // console.log('button 1 up');
     });
 
     button2.on('down', () => {
-        console.log('button 2 down');
+        // console.log('button 2 down');
+        board.emit('button-click', {
+            action : 'select'
+        });
     });
     button2.on('hold', () => {
-        console.log('button 2 hold');
+        // console.log('button 2 hold');
+        // board.emit('button-click', {
+        //     action : ''
+        // });
     });
     button2.on('up', () => {
-        console.log('button 2 up');
+        // console.log('button 2 up');
     });
 
     button3.on('down', () => {
-        console.log('button 3 down');
+        // console.log('button 3 down');
+        board.emit('button-click', {
+            action : 'right'
+        });
     });
     button3.on('hold', () => {
-        console.log('button 3 hold');
+        // console.log('button 3 hold');
     });
     button3.on('up', () => {
-        console.log('button 3 up');
+        // console.log('button 3 up');
     });
 
 
