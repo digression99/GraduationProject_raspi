@@ -11,10 +11,18 @@ board.on('event-start', function(data) {
     console.log(data.name);
 });
 
+board.on('event-exit', function() {
+    console.log('event exit!');
+});
+
 
 
 board.on('ready', function() {
     console.log('board is ready!');
+
+    this.on('exit', function() {
+        console.log('exit!');
+    });
 
     let digitalLed1 = new five.Led('P1-7');
     let digitalLed2 = new five.Led('P1-11');

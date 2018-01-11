@@ -1,5 +1,7 @@
 {
-  "setting1" : 0,
-  "setting2" : "abc",
-  "setting3" : "bravo"
+  "time" : 25,
+  "index" : 0,
+  "timeoutObj" : null,
+  "startedAt" : null,
+  "endedAt" : null
 }
