@@ -68,7 +68,7 @@ class UI {
     }
 
     onSelect() {
-        if (this.state.node.children) {
+        if (this.state.node.children !== []) {
             this.state.node = this.state.node.children[this.state.select];
             this.state.select = 0;
         } else {
