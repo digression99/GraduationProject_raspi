@@ -15,7 +15,8 @@ board.on('ready', function() {
     let led1 = new five.Led('P1-19');
 
     this.repl.inject({
-        button1
+        button1,
+        led1
     });
 
     button1.on('down', () => {
