@@ -11,6 +11,11 @@ let isHold = false;
 //     strobe.write(state ^= 0x01);
 // });
 
+board.on('data', () => {
+
+
+});
+
 initCli()
     .then(({initTodos, initSetting}) => {
         todos = initTodos;
@@ -25,7 +30,7 @@ initCli()
         board.on('event-start', function(data) {
             console.log('event-start!');
             console.log(data.name);
-        });
+            });
 
         board.on('button-click', (data) => {
             switch (data.action) {
@@ -74,18 +79,18 @@ initCli()
             //     holdtime : 1000
             // });
 
-            let soundSensor = new five.Pin({
-                pin : 'P1-22',
-                mode : 0,
-                type : 'digital'
-
-            });
+            // moved to arduino.
+            // let soundSensor = new five.Pin({
+            //     pin : 'P1-22',
+            //     mode : 0,
+            //     type : 'digital'
+            // });
 
             this.repl.inject({
                 button1,
                 button2,
                 button3,
-                soundSensor
+                // soundSensor
             });
 
             button1.on('down', () => {
