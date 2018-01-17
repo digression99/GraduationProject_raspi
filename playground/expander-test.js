@@ -14,12 +14,18 @@ board.on('ready', function() {
     // let button1 = new five.Button('P1-13');
     // let led1 = new five.Led('P1-19');
 
+    let expander = new five.Expander("MCP23008");
+
     let virtual = new five.Board.Virtual(
-        new five.Expander("MCP23008")
+        expander
     );
     let led1 = new five.Led({
         board: virtual,
         pin: 0,
+    });
+
+    expander.analogRead(0, (value) => {
+        console.log('analog input : ', value);
     });
 
     led1.on();
