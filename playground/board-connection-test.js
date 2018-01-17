@@ -21,7 +21,9 @@ board.on('ready', function() {
         console.log('button down!');
     });
     button1.on('hold', () => {
+        console.log('button hold!');
     });
     button1.on('up', () => {
+        console.log('button up!');
     });
 });
