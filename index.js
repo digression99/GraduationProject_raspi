@@ -42,4 +42,15 @@ const board = new five.Board({
 board.on('ready', function() {
     console.log('board is ready!');
     (new five.Led('P1-7')).strobe();
+
+    const button1 = new five.Button('P1-11');
+    const button2 = new five.Button('P1-13');
+
+    button1.on('press', function () {
+        console.log('button 1 pressed.');
+    });
+
+    button2.on('press', function () {
+        console.log('button 2 pressed.');
+    });
 });
