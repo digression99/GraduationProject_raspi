@@ -16,13 +16,13 @@ dotenv.load({path : '.env.development'});
 const opts = {
     width : 640,
     height : 480,
-    mode : 'timelapse',
+    mode : 'photo',
     awb : 'off',
     encoding : 'jpg',
     output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
     q : 50, // quality
-    timeout : 8000, // total shot time.
-    timelapse : 400, // time between every shots.
+    // timeout : 8000, // total shot time.
+    // timelapse : 400, // time between every shots.
     // nopreview : true,
     // th : '0:0:0'
 };
@@ -48,6 +48,7 @@ board.on('ready', function() {
 
     button1.on('press', function () {
         console.log('button 1 pressed.');
+        camera.start();
     });
 
     button2.on('press', function () {
