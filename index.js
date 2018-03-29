@@ -28,6 +28,7 @@ const opts = {
 };
 
 const camera = new RaspiCam(opts);
+console.log(camera);
 
 camera.on('exit', function () {
     camera.stop();
