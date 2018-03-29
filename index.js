@@ -19,7 +19,7 @@ const opts = {
     awb : 'off',
     encoding : 'jpg',
     // output : `${process.env.IMAGE_FOLDER_NAME}/%04d.jpg`,
-    // output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
+    output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
     q : 50, // quality
     // timeout : 8000, // total shot time.
     // timelapse : 400, // time between every shots.
@@ -49,7 +49,8 @@ board.on('ready', function() {
 
     button1.on('press', function () {
         console.log('button 1 pressed.');
-        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`;
+        // camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`;
+        camera.opts.filename = `${uuidv4()}.jpg`;
         camera.start();
     });
 
