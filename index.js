@@ -12,23 +12,6 @@ const uuidv4 = require('uuid/v4');
 // load the environment.
 dotenv.load({path : '.env.development'});
 
-// camera
-const opts = {
-    width : 640,
-    height : 480,
-    mode : 'photo',
-    awb : 'off',
-    encoding : 'jpg',
-    output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
-    q : 50, // quality
-    // timeout : 8000, // total shot time.
-    // timelapse : 400, // time between every shots.
-    // nopreview : true,
-    // th : '0:0:0'
-};
-
-const camera = new RaspiCam(opts);
-
 camera.on('exit', function () {
     camera.stop();
     console.log('camera exit.');
@@ -48,6 +31,23 @@ board.on('ready', function() {
 
     button1.on('press', function () {
         console.log('button 1 pressed.');
+
+// camera
+        const opts = {
+            width : 640,
+            height : 480,
+            mode : 'photo',
+            awb : 'off',
+            encoding : 'jpg',
+            output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
+            q : 50, // quality
+            // timeout : 8000, // total shot time.
+            // timelapse : 400, // time between every shots.
+            // nopreview : true,
+            // th : '0:0:0'
+        };
+
+        const camera = new RaspiCam(opts);
         camera.start();
     });
 
