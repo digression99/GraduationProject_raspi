@@ -21,9 +21,9 @@ const opts = {
     // output : `${process.env.IMAGE_FOLDER_NAME}/%04d.jpg`,
     output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
     q : 50, // quality
-    // timeout : 8000, // total shot time.
-    // timelapse : 400, // time between every shots.
-    // nopreview : true,
+    // timeout : 1000, // total shot time.
+    // timelapse : 1000, // time between every shots.
+    nopreview : true,
     // th : '0:0:0'
 };
 
