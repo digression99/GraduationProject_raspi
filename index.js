@@ -49,8 +49,8 @@ board.on('ready', function() {
 
     button1.on('press', function () {
         console.log('button 1 pressed.');
-        // camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`;
-        camera.opts.filename = `${uuidv4()}.jpg`;
+        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`;
+        // camera.opts.filename = `${uuidv4()}.jpg`;
         camera.start();
     });
 
