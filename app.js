@@ -2,10 +2,6 @@
 // * This code must be written in ES5.
 //
 
-
-
-
-
 const express = require('express');
 var Raspi = require('raspi-io');
 const five = require('johnny-five');
@@ -14,8 +10,8 @@ var RaspiCam = require('raspicam');
 var request = require('request');
 var fs = require('fs');
 var path = require('path');
-var base64 = require('node-base64-image');
-var bodyParser = require('body-parser');
+// var base64 = require('node-base64-image');
+// var bodyParser = require('body-parser');
 
 const app = express();
 
