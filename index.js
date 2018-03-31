@@ -45,7 +45,7 @@ camera.on('exit', async function () {
 
         const email = "raspicam-upload@gmail.com";
         const designation = "user";
-        const img = fs.readFileSync(camera.opts.output);
+        const img = fs.readFileSync(path.join(__dirname, camera.opts.output));
         const imgBase64 = img.toString('base64');
         // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
 
