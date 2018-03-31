@@ -58,9 +58,9 @@ camera.on('exit', async function () {
         const params = {
             Bucket : process.env.AWS_BUCKET_NAME,
             Key: `${email}/${designation}/${uuidTest}.jpg`,
-            Body: imgBase64,
+            Body: img,
             ACL : 'public-read',
-            ContentEncoding: 'base64',
+            // ContentEncoding: 'base64',
             ContentType: 'image/jpg'
         };
         // return pify()
