@@ -74,19 +74,17 @@ camera.on('exit', async function () {
 
         // delete the image file from sd card.
 
-
-
         // send s3 object data to server.
         const formData = {
             email,
             designation,
-            uuid : uuidTest
-            // uuidArr : [uuidTest]
+            // uuid : uuidTest
+            uuidArr : [uuidTest]
         };
 
         const options = {
-            // url : 'http://grad-project-app.herokuapp.com/user/face-register',
-            url : 'http://grad-project-app.herokuapp.com/user/face-detect',
+            url : 'http://grad-project-app.herokuapp.com/user/face-register',
+            // url : 'http://grad-project-app.herokuapp.com/user/face-detect',
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
