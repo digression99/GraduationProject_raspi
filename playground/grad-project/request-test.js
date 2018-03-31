@@ -24,19 +24,17 @@ const options = {
 
 
 pify(request)(options)
-    .then((res, body) => {
+    .then(res => {
         console.log('request succeed.');
 
         if (res.statusCode === 200) {
 
             console.log("res : ");
-            console.log(res);
-            console.log("body : ");
-            console.log(body);
+            console.log(res.body);
         } else if (res.statusCode === 400) {
             console.log('some error occured.');
-            console.log(res);
-            console.log(body);
+            console.log(res.body);
+            // console.log(body);
         }
     })
     .catch(e => console.log(e));
