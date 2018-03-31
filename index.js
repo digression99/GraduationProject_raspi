@@ -35,6 +35,7 @@ const camera = new RaspiCam(opts);
 console.log(camera);
 
 let uuidTest;
+let designation;
 
 camera.on('exit', async function () {
     camera.stop();
@@ -121,11 +122,16 @@ board.on('ready', function() {
         console.log('button 1 pressed.');
         uuidTest = uuidv4();
         camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
+        designation = 'user';
         // camera.opts.filename = `${uuidv4()}.jpg`;
         camera.start();
     });
 
     button2.on('press', function () {
         console.log('button 2 pressed.');
+        uuidTest = uuidv4();
+        designation = 'friend';
+        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
+        camera.start();
     });
 });
