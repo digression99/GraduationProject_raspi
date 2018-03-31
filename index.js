@@ -45,7 +45,11 @@ camera.on('exit', async function () {
 
         const email = "raspicam-upload@gmail.com";
         const designation = "user";
-        const img = fs.readFileSync(path.join(__dirname, camera.opts.output));
+        const img = await fs.readFile(path.join(__dirname, camera.opts.output));
+
+        console.log("image is : ");
+        console.log(img);
+
         const imgBase64 = img.toString('base64');
         // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
 
@@ -63,9 +67,11 @@ camera.on('exit', async function () {
 
         console.log('uploading image : ', uuidTest);
 
-        await S3.putObject(params);
+        const data = await S3.putObject(params);
 
         console.log('data uploaded.');
+
+        console.log(data);
         // S3.putObject(params, function(err, data){
         //     if (err) {
         //         console.log(err);
