@@ -18,7 +18,7 @@ const options = {
     json : true,
     body : {
         email : 'kimilsik@gmail.com',
-
+        password : 'abc123'
     }
 };
 
