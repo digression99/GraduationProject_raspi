@@ -43,17 +43,15 @@ camera.on('exit', async function () {
     try {
         console.log('image transform start.');
 
-        const email = "raspicam-upload@gmail.com";
+        // image read from file.
+
+        const email = "kimilsik@gmail.com";
         const designation = "user";
         const img = await pify(fs.readFile)(path.join(__dirname, camera.opts.output));
 
-        console.log("image is : ");
-        console.log(img);
-
-        const imgBase64 = img.toString('base64');
-        // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
-
         console.log('image transformed.');
+
+        // upload data to s3.
 
         const params = {
             Bucket : process.env.AWS_BUCKET_NAME,
@@ -72,14 +70,32 @@ camera.on('exit', async function () {
         console.log('data uploaded.');
 
         console.log(data);
-        // S3.putObject(params, function(err, data){
-        //     if (err) {
-        //         console.log(err);
-        //         console.log('Error uploading data: ', data);
-        //     } else {
-        //         console.log('succesfully uploaded the image!');
-        //     }
-        // });
+
+        // delete the image file from sd card.
+
+
+
+        // send s3 object data to server.
+        const formData = {
+            email,
+            designation,
+            uuidArr : [uuidTest]
+        };
+
+        const options = {
+            url : 'http://grad-project-app.herokuapp.com/user/face-register',
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            json : true,
+            body : formData
+        };
+
+        const requestResult = await pify(request)(options);
+
+        console.log('request succeed.');
+        console.log(requestResult);
 
     } catch (e) {
         console.log('error occured.');
