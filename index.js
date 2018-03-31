@@ -45,7 +45,7 @@ camera.on('exit', async function () {
 
         const email = "raspicam-upload@gmail.com";
         const designation = "user";
-        const img = await fs.readFile(path.join(__dirname, camera.opts.output));
+        const img = await pify(fs.readFile)(path.join(__dirname, camera.opts.output));
 
         console.log("image is : ");
         console.log(img);
@@ -67,7 +67,7 @@ camera.on('exit', async function () {
 
         console.log('uploading image : ', uuidTest);
 
-        const data = await S3.putObject(params);
+        const data = await pify(S3.putObject)(params);
 
         console.log('data uploaded.');
 
