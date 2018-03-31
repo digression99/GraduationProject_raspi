@@ -11,6 +11,8 @@ const uuidv4 = require('uuid/v4');
 
 // load the environment.
 dotenv.load({path : '.env.development'});
+console.log('environment set!');
+console.log(process.env);
 
 const {S3} = require('./config/aws');
 
@@ -34,34 +36,44 @@ console.log(camera);
 
 let uuidTest;
 
-camera.on('exit', function () {
+camera.on('exit', async function () {
     camera.stop();
     console.log('camera exit.');
 
-    const email = "raspicam-upload@gmail.com";
-    const designation = "user";
-    const img = fs.readFileSync(camera.opts.output);
-    const imgBase64 = img.toString('base64');
-    // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
+    try {
 
-    const params = {
-        Bucket : process.env.AWS_BUCKET_NAME,
-        Key: `${email}/${designation}/${uuidTest}.jpg`,
-        Body: imgBase64,
-        ACL : 'public-read',
-        ContentEncoding: 'base64',
-        ContentType: 'image/jpg'
-    };
-    // return pify()
+        const email = "raspicam-upload@gmail.com";
+        const designation = "user";
+        const img = await fs.readFile(camera.opts.output);
+        const imgBase64 = img.toString('base64');
+        // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
 
-    S3.putObject(params, function(err, data){
-        if (err) {
-            console.log(err);
-            console.log('Error uploading data: ', data);
-        } else {
-            console.log('succesfully uploaded the image!');
-        }
-    });
+        const params = {
+            Bucket : process.env.AWS_BUCKET_NAME,
+            Key: `${email}/${designation}/${uuidTest}.jpg`,
+            Body: imgBase64,
+            ACL : 'public-read',
+            ContentEncoding: 'base64',
+            ContentType: 'image/jpg'
+        };
+        // return pify()
+
+        await S3.putObject(params);
+
+        console.log('data uploaded.');
+        // S3.putObject(params, function(err, data){
+        //     if (err) {
+        //         console.log(err);
+        //         console.log('Error uploading data: ', data);
+        //     } else {
+        //         console.log('succesfully uploaded the image!');
+        //     }
+        // });
+
+    } catch (e) {
+        console.log('error occured.');
+        console.log(e);
+    }
 });
 
 // board setting.
