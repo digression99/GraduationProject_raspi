@@ -12,6 +12,8 @@ const uuidv4 = require('uuid/v4');
 // load the environment.
 dotenv.load({path : '.env.development'});
 
+const {S3} = require('config/aws');
+
 const opts = {
     width : 640,
     height : 480,
