@@ -5,9 +5,9 @@ const fs = require('fs');
 const uuidv4 = require('uuid/v4');
 
 // environment setting
-dotenv.load({path: path.join(__dirname, '../.env.development')});
+dotenv.load({path: path.join(__dirname, '../../.env.development')});
 
-const {S3} = require('../config/aws');
+const {S3} = require('../../config/aws');
 
 // const params = {
 //     'Bucket': process.env.AWS_BUCKET_NAME,
@@ -27,14 +27,14 @@ const {S3} = require('../config/aws');
 (async () => {
     const email = "gg@gmail.com";
     const designation = "user";
-    const img = fs.readFileSync(path.join(__dirname, 'upload-image.jpg'));
-    const imgBase64 = img.toString('base64');
+    // const img = fs.readFileSync(path.join(__dirname, 'upload-image.jpg'));
+    // const imgBase64 = img.toString('base64');
     // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
 
     const params = {
         Bucket : process.env.AWS_BUCKET_NAME,
-        Key: `${email}/${designation}/${uuidv4()}.jpg`,
-        Body: imgBase64,
+        Key: `raspi-upload.txt`,
+        Body: "hello!",
         ACL : 'public-read',
         ContentEncoding: 'base64',
         ContentType: 'image/jpg'
