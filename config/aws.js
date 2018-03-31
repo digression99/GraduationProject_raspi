@@ -1,6 +1,6 @@
 // Load the SDK and UUID
 const AWS = require('aws-sdk');
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
 AWS.config.update({
     accessKeyId : process.env.AWS_ACCESS_KEY_ID,

@@ -12,7 +12,7 @@ const uuidv4 = require('uuid/v4');
 // load the environment.
 dotenv.load({path : '.env.development'});
 console.log('environment set!');
-console.log(process.env);
+// console.log(process.env);
 
 const {S3} = require('./config/aws');
 
@@ -41,12 +41,15 @@ camera.on('exit', async function () {
     console.log('camera exit.');
 
     try {
+        console.log('image transform start.');
 
         const email = "raspicam-upload@gmail.com";
         const designation = "user";
         const img = await fs.readFile(camera.opts.output);
         const imgBase64 = img.toString('base64');
         // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
+
+        console.log('image transformed.');
 
         const params = {
             Bucket : process.env.AWS_BUCKET_NAME,
@@ -57,6 +60,8 @@ camera.on('exit', async function () {
             ContentType: 'image/jpg'
         };
         // return pify()
+
+        console.log('uploading image : ', uuidTest);
 
         await S3.putObject(params);
 
