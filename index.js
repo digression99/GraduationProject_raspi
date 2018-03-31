@@ -47,7 +47,6 @@ camera.on('exit', async function () {
         // image read from file.
 
         const email = "kimilsik@gmail.com";
-        const designation = "user";
         const img = await pify(fs.readFile)(path.join(__dirname, camera.opts.output));
 
         console.log('image transformed.');
