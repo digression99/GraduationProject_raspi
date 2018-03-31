@@ -17,7 +17,8 @@ const options = {
     },
     json : true,
     body : {
-        email : 'kimilsik@gmail.com'
+        email : 'kimilsik@gmail.com',
+
     }
 };
 
@@ -34,6 +35,8 @@ pify(request)(options)
             console.log(body);
         } else if (res.statusCode === 400) {
             console.log('some error occured.');
+            console.log(res);
+            console.log(body);
         }
     })
     .catch(e => console.log(e));
