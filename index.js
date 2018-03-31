@@ -30,9 +30,36 @@ const opts = {
 const camera = new RaspiCam(opts);
 console.log(camera);
 
+let uuidTest;
+
 camera.on('exit', function () {
     camera.stop();
     console.log('camera exit.');
+
+    const email = "raspicam-upload@gmail.com";
+    const designation = "user";
+    const img = fs.readFileSync(camera.opts.output);
+    const imgBase64 = img.toString('base64');
+    // const decoded = new Buffer(imgBase64, 'base64').toString('ascii');
+
+    const params = {
+        Bucket : process.env.AWS_BUCKET_NAME,
+        Key: `${email}/${designation}/${uuidTest}.jpg`,
+        Body: imgBase64,
+        ACL : 'public-read',
+        ContentEncoding: 'base64',
+        ContentType: 'image/jpg'
+    };
+    // return pify()
+
+    S3.putObject(params, function(err, data){
+        if (err) {
+            console.log(err);
+            console.log('Error uploading data: ', data);
+        } else {
+            console.log('succesfully uploaded the image!');
+        }
+    });
 });
 
 // board setting.
@@ -49,7 +76,8 @@ board.on('ready', function() {
 
     button1.on('press', function () {
         console.log('button 1 pressed.');
-        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`;
+        uuidTest = uuidv4();
+        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
         // camera.opts.filename = `${uuidv4()}.jpg`;
         camera.start();
     });

@@ -28,7 +28,6 @@ pify(request)(options)
         console.log('request succeed.');
 
         if (res.statusCode === 200) {
-
             console.log("res : ");
             console.log(res.body);
         } else if (res.statusCode === 400) {
