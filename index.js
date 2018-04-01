@@ -34,12 +34,16 @@ const opts = {
 const camera = new RaspiCam(opts);
 console.log(camera);
 
+let mode = 'button1';
+let urlMode = 'face-register';
 let uuidTest;
 let designation;
 
 camera.on('exit', async function () {
     camera.stop();
     console.log('camera exit.');
+
+    designation = (mode === 'button1') ? 'user' : 'friend';
 
     try {
         console.log('image transform start.');
@@ -77,13 +81,13 @@ camera.on('exit', async function () {
         const formData = {
             email,
             designation,
-            uuid : uuidTest
-            // uuidArr : [uuidTest]
+            uuid : urlMode === 'face-register' ? [uuidTest] : uuidTest
         };
 
         const options = {
+            url : 'http://grad-project-app.herokuapp.com/user/' + urlMode,
             // url : 'http://grad-project-app.herokuapp.com/user/face-register',
-            url : 'http://grad-project-app.herokuapp.com/user/face-detect',
+            // url : 'http://grad-project-app.herokuapp.com/user/face-detect',
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
@@ -114,21 +118,36 @@ board.on('ready', function() {
 
     const button1 = new five.Button('P1-11');
     const button2 = new five.Button('P1-13');
+    const button3 = new five.Button('P1-29');
 
     button1.on('press', function () {
+
+        mode = 'button1';
+
         console.log('button 1 pressed.');
         uuidTest = uuidv4();
         camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
-        designation = 'user';
+        // designation = 'user';
         // camera.opts.filename = `${uuidv4()}.jpg`;
         camera.start();
     });
 
     button2.on('press', function () {
+
+        mode = 'button2';
+
         console.log('button 2 pressed.');
         uuidTest = uuidv4();
-        designation = 'friend';
+        // designation = 'friend';
         camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
         camera.start();
+    });
+
+    button3.on('press', function() {
+
+        urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
+
+        console.log('button 3 pressed');
+        console.log('url mode is :', urlMode);
     });
 });
