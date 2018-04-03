@@ -96,7 +96,7 @@ camera.on('exit', async function () {
 
         // send s3 object data to server.
         const formData = {
-            selectedEmail,
+            email : selectedEmail,
             designation,
             uuid : urlMode === 'face-register' ? [uuidTest] : uuidTest
         };
