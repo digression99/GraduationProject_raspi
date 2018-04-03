@@ -56,10 +56,11 @@ camera.on('exit', async function () {
         console.log('image transformed.');
 
         // upload data to s3.
+        const replaced = email.replace(/[@.]/g, '-');
 
         const params = {
             Bucket : process.env.AWS_BUCKET_NAME,
-            Key: `${email}/${designation}/${uuidTest}.jpg`,
+            Key: `${replaced}/${designation}/${uuidTest}.jpg`,
             Body: img,
             ACL : 'public-read',
             // ContentEncoding: 'base64',
@@ -86,8 +87,6 @@ camera.on('exit', async function () {
 
         const options = {
             url : 'http://grad-project-app.herokuapp.com/user/' + urlMode,
-            // url : 'http://grad-project-app.herokuapp.com/user/face-register',
-            // url : 'http://grad-project-app.herokuapp.com/user/face-detect',
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
