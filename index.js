@@ -39,6 +39,21 @@ let urlMode = 'face-register';
 let uuidTest;
 let designation;
 
+let cnt = 0;
+let emailArray = [
+    "jojo@gmail.com",
+    "kimilsik@gmail.com"
+];
+
+let selectedEmail = emailArray[0];
+
+const changeEmail = () => {
+    const maxIdx = emailArray.length;
+    const idx = (cnt + 1) % maxIdx;
+    selectedEmail = emailArray[idx];
+};
+
+
 camera.on('exit', async function () {
     camera.stop();
     console.log('camera exit.');
@@ -50,7 +65,7 @@ camera.on('exit', async function () {
 
         // image read from file.
 
-        const email = "kimilsik@gmail.com";
+        const email = "jojo@gmail.com";
         const img = await pify(fs.readFile)(path.join(__dirname, camera.opts.output));
 
         console.log('image transformed.');
@@ -118,6 +133,7 @@ board.on('ready', function() {
     const button1 = new five.Button('P1-11');
     const button2 = new five.Button('P1-13');
     const button3 = new five.Button('P1-29');
+    const button4 = new five.Button('P2-12');
 
     button1.on('press', function () {
 
@@ -148,5 +164,14 @@ board.on('ready', function() {
 
         console.log('button 3 pressed');
         console.log('url mode is :', urlMode);
+    });
+
+    button4.on('press', function() {
+        changeEmail();
+
+        // urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
+        console.log('button 4 pressed');
+        console.log("email : ", selectedEmail);
+        // console.log('url mode is :', urlMode);
     });
 });
