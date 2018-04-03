@@ -133,7 +133,7 @@ board.on('ready', function() {
     const button1 = new five.Button('P1-11');
     const button2 = new five.Button('P1-13');
     const button3 = new five.Button('P1-29');
-    const button4 = new five.Button('P2-12');
+    const button4 = new five.Button('P1-31');
 
     button1.on('press', function () {
 
