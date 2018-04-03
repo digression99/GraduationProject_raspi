@@ -45,12 +45,13 @@ let emailArray = [
     "kimilsik@gmail.com"
 ];
 
-let selectedEmail = emailArray[0];
+let selectedEmail = emailArray[cnt];
 
 const changeEmail = () => {
     const maxIdx = emailArray.length;
-    const idx = (cnt + 1) % maxIdx;
-    selectedEmail = emailArray[idx];
+    cnt = (cnt + 1) % maxIdx;
+    // const idx = (cnt + 1) % maxIdx;
+    selectedEmail = emailArray[cnt];
 };
 
 
