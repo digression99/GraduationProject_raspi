@@ -66,13 +66,13 @@ camera.on('exit', async function () {
 
         // image read from file.
 
-        const email = "jojo@gmail.com";
+        // const email = "jojo@gmail.com";
         const img = await pify(fs.readFile)(path.join(__dirname, camera.opts.output));
 
         console.log('image transformed.');
 
         // upload data to s3.
-        const replaced = email.replace(/[@.]/g, '-');
+        const replaced = selectedEmail.replace(/[@.]/g, '-');
 
         const params = {
             Bucket : process.env.AWS_BUCKET_NAME,
@@ -96,7 +96,7 @@ camera.on('exit', async function () {
 
         // send s3 object data to server.
         const formData = {
-            email,
+            selectedEmail,
             designation,
             uuid : urlMode === 'face-register' ? [uuidTest] : uuidTest
         };
