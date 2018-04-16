@@ -42,7 +42,8 @@ let designation;
 let cnt = 0;
 let emailArray = [
     "jojo@gmail.com",
-    "kimilsik@gmail.com"
+    "kimilsik@gmail.com",
+    "jojo2@gmail.com"
 ];
 
 let selectedEmail = emailArray[cnt];
@@ -59,7 +60,7 @@ camera.on('exit', async function () {
     camera.stop();
     console.log('camera exit.');
 
-    designation = (mode === 'button1') ? 'user' : 'friend';
+    designation = (mode === 'button1') ? 'detected' : 'friend';
 
     try {
         console.log('image transform start.');
@@ -73,16 +74,17 @@ camera.on('exit', async function () {
 
         // upload data to s3.
         const replaced = selectedEmail.replace(/[@.]/g, '-');
+        const key = `${replaced}/${designation}/${uuidTest}.jpg`;
+        // const key = urlMode === 'face-register' ? `${replaced}/${designation}/${uuidTest}.jpg` : `${replaced}//${uuidTest}.jpg`;
 
         const params = {
             Bucket : process.env.AWS_BUCKET_NAME,
-            Key: `${replaced}/${designation}/${uuidTest}.jpg`,
+            Key: key,
             Body: img,
             ACL : 'public-read',
             // ContentEncoding: 'base64',
             ContentType: 'image/jpg'
         };
-        // return pify()
 
         console.log('uploading image : ', uuidTest);
 
