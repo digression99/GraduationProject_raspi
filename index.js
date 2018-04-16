@@ -36,8 +36,8 @@ console.log(camera);
 
 let mode = 'button1';
 let urlMode = 'face-register';
-let uuidTest;
-let designation;
+let uuidTest = '';
+let designation = 'user';
 
 let cnt = 0;
 let emailArray = [
@@ -60,7 +60,7 @@ camera.on('exit', async function () {
     camera.stop();
     console.log('camera exit.');
 
-    designation = (mode === 'button1') ? 'detected' : 'friend';
+    // designation = (mode === 'button1') ? 'detected' : 'user';
 
     try {
         console.log('image transform start.');
@@ -154,11 +154,15 @@ board.on('ready', function() {
 
         mode = 'button2';
 
+        designation = designation === 'user' ? 'detected' : 'user';
+
         console.log('button 2 pressed.');
-        uuidTest = uuidv4();
+        console.log('designation : ', designation);
+
+        // uuidTest = uuidv4();
         // designation = 'friend';
-        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
-        camera.start();
+        // camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
+        // camera.start();
     });
 
     button3.on('press', function() {
