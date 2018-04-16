@@ -104,7 +104,8 @@ camera.on('exit', async function () {
         };
 
         const options = {
-            url : 'http://grad-project-app.herokuapp.com/user/' + urlMode,
+            url : `${process.env.SERVER_URL}/user/${urlMode}`,
+            // url : 'http://grad-project-app.herokuapp.com/user/' + urlMode,
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
