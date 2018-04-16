@@ -153,7 +153,7 @@ board.on('ready', function() {
 
     button2.on('press', function () {
 
-        mode = 'button2';
+        // mode = 'button2';
 
         designation = designation === 'user' ? 'detected' : 'user';
 
