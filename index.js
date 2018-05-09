@@ -43,7 +43,9 @@ let cnt = 0;
 let emailArray = [
     "jojo@gmail.com",
     "kimilsik@gmail.com",
-    "jojo2@gmail.com"
+    "jojo2@gmail.com",
+    "jojo3@gmail.com",
+    "test@gmail.com"
 ];
 
 let selectedEmail = emailArray[cnt];
