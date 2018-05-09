@@ -157,7 +157,7 @@ board.on('ready', function() {
 
         // mode = 'button2';
 
-        designation = designation === 'user' ? 'detected' : 'user';
+        // designation = designation === 'user' ? 'detected' : 'user';
 
         console.log('button 2 pressed.');
         console.log('designation : ', designation);
