@@ -41,11 +41,10 @@ let designation = 'user';
 
 let cnt = 0;
 let emailArray = [
-    "jojo@gmail.com",
-    "kimilsik@gmail.com",
     "jojo2@gmail.com",
     "jojo3@gmail.com",
-    "test@gmail.com"
+    "test@gmail.com",
+    "jojo12@gmail.com"
 ];
 
 let selectedEmail = emailArray[cnt];
@@ -106,7 +105,7 @@ camera.on('exit', async function () {
         };
 
         const options = {
-            url : `${process.env.SERVER_URL}/user/${urlMode}`,
+            url : `${process.env.SERVER_URL}/device/${urlMode}`,
             // url : 'http://grad-project-app.herokuapp.com/user/' + urlMode,
             method : 'POST',
             headers : {
@@ -171,6 +170,7 @@ board.on('ready', function() {
     button3.on('press', function() {
 
         urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
+        designation = (urlMode === 'face-register') ? 'detected' : 'user';
 
         console.log('button 3 pressed');
         console.log('url mode is :', urlMode);
