@@ -118,8 +118,7 @@ camera.on('exit', async function () {
         const requestResult = await pify(request)(options);
 
         console.log('request succeed.');
-        console.log(requestResult);
-
+        console.log(requestResult.body);
     } catch (e) {
         console.log('error occured.');
         console.log(e);
