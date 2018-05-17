@@ -88,8 +88,8 @@ camera.on('exit', async function () {
         };
 
         console.log('uploading image : ', uuidTest);
-        console.log('s3 params : ');
-        console.log(JSON.stringify(params, undefined, 2));
+        // console.log('s3 params : ');
+        // console.log(JSON.stringify(params, undefined, 2));
 
         const data = await pify(S3.putObject.bind(S3))(params);
 
