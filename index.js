@@ -88,6 +88,8 @@ camera.on('exit', async function () {
         };
 
         console.log('uploading image : ', uuidTest);
+        console.log('s3 params : ');
+        console.log(JSON.stringify(params, undefined, 2));
 
         const data = await pify(S3.putObject.bind(S3))(params);
 
@@ -169,7 +171,7 @@ board.on('ready', function() {
     button3.on('press', function() {
 
         urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
-        designation = (urlMode === 'face-register') ? 'detected' : 'user';
+        designation = (urlMode === 'face-register') ? 'user' : 'detected';
 
         console.log('button 3 pressed');
         console.log('url mode is :', urlMode);
