@@ -151,11 +151,12 @@ board.on('ready', function() {
         console.log('res is :');
         console.log(JSON.stringify(res, undefined, 2));
 
-        if (!res.email) {
+        selectedEmail = res.body.email;
+
+        if (!selectedEmail) {
             console.log('device not registered.');
             return;
         }
-        selectedEmail = res.email;
 
         uuidTest = uuidv4();
         camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
