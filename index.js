@@ -148,6 +148,8 @@ board.on('ready', function() {
         };
 
         const res = await pify(request)(options);
+        console.log('res is :');
+        console.log(JSON.stringify(res, undefined, 2));
 
         if (!res.email) {
             console.log('device not registered.');
