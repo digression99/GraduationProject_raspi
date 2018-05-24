@@ -13,6 +13,13 @@ const uuidv4 = require('uuid/v4');
 dotenv.load({path : '.env.development'});
 console.log('environment set!');
 
+const {
+    DEVICE_ID,
+    IMAGE_FOLDER_NAME,
+    SERVER_URL,
+    AWS_BUCKET_NAME
+} = process.env;
+
 const {S3} = require('./config/aws');
 
 const opts = {
@@ -21,7 +28,7 @@ const opts = {
     mode : 'photo',
     awb : 'off',
     encoding : 'jpg',
-    output : `${process.env.IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
+    output : `${IMAGE_FOLDER_NAME}/${uuidv4()}.jpg`,
     q : 50, // quality
     timeout : 1000, // total shot time.
     // timelapse : 1000, // time between every shots.
@@ -32,27 +39,10 @@ const opts = {
 const camera = new RaspiCam(opts);
 console.log(camera);
 
-let mode = 'button1';
+// let mode = 'button1';
 // let urlMode = 'face-register';
-let uuidTest = '';
+let uuid = '';
 let selectedEmail = "";
-// let designation = 'user';
-
-// let cnt = 0;
-// let emailArray = [
-//     "jojo2@gmail.com",
-//     "jojo3@gmail.com",
-//     "test@gmail.com",
-//     "jojo14@gmail.com"
-// ];
-
-// const changeEmail = () => {
-//     const maxIdx = emailArray.length;
-//     cnt = (cnt + 1) % maxIdx;
-//     // const idx = (cnt + 1) % maxIdx;
-//     selectedEmail = emailArray[cnt];
-// };
-
 
 camera.on('exit', async function () {
     camera.stop();
@@ -67,36 +57,30 @@ camera.on('exit', async function () {
 
         // upload data to s3.
         const replaced = selectedEmail.replace(/[@.]/g, '-');
-        const key = `${replaced}/detected/${uuidTest}.jpg`;
+        const key = `${replaced}/detected/${uuid}.jpg`;
 
         const params = {
-            Bucket : process.env.AWS_BUCKET_NAME,
+            Bucket : AWS_BUCKET_NAME,
             Key: key,
             Body: img,
             ACL : 'public-read',
-            // ContentEncoding: 'base64',
             ContentType: 'image/jpg'
         };
 
-        console.log('uploading image : ', uuidTest);
-        // console.log('s3 params : ');
-        // console.log(JSON.stringify(params, undefined, 2));
+        console.log('uploading image : ', uuid);
 
         await pify(S3.putObject.bind(S3))(params);
 
         console.log('data uploaded.');
-        // console.log(data);
-        // delete the image file from sd card.
-        // send s3 object data to server.
+
         const formData = {
             email : selectedEmail,
             designation : 'detected',
-            uuid : uuidTest
+            uuid
         };
 
         const options = {
-            url : `${process.env.SERVER_URL}/device/face-detect`,
-            // url : 'http://grad-project-app.herokuapp.com/user/' + urlMode,
+            url : `${SERVER_URL}/device/face-detect`,
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
@@ -122,34 +106,31 @@ const board = new five.Board({
 
 board.on('ready', function() {
     console.log('board is ready!');
-    (new five.Led('P1-7')).strobe();
+    // (new five.Led('P1-7')).strobe();
 
     const button1 = new five.Button('P1-11');
-    const button2 = new five.Button('P1-13');
-    const button3 = new five.Button('P1-29');
-    const button4 = new five.Button('P1-31');
+    // const button2 = new five.Button('P1-13');
+    // const button3 = new five.Button('P1-29');
+    // const button4 = new five.Button('P1-31');
 
     button1.on('press', async function () {
-
-        mode = 'button1';
-
         console.log('button 1 pressed.');
 
         const options = {
-            url : `${process.env.SERVER_URL}/device/get-user-email`,
+            url : `${SERVER_URL}/device/get-user-email`,
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
             },
             json : true,
             body : {
-                id : process.env.DEVICE_ID
+                id : DEVICE_ID
             }
         };
 
         const res = await pify(request)(options);
-        console.log('res is :');
-        console.log(JSON.stringify(res, undefined, 2));
+        // console.log('res is :');
+        // console.log(JSON.stringify(res, undefined, 2));
 
         selectedEmail = res.body.email;
 
@@ -157,44 +138,43 @@ board.on('ready', function() {
             console.log('device not registered.');
             return;
         }
+        console.log('selected email : ', selectedEmail);
 
-        uuidTest = uuidv4();
-        camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
-        // designation = 'user';
-        // camera.opts.filename = `${uuidv4()}.jpg`;
+        uuid = uuidv4();
+        camera.opts.output = `${IMAGE_FOLDER_NAME}/${uuid}.jpg`;
         camera.start();
     });
 
-    button2.on('press', function () {
-
-        // mode = 'button2';
-
-        // designation = designation === 'user' ? 'detected' : 'user';
-
-        console.log('button 2 pressed.');
-        // console.log('designation : ', designation);
-
-        // uuidTest = uuidv4();
-        // designation = 'friend';
-        // camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
-        // camera.start();
-    });
-
-    button3.on('press', function() {
-
-        // urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
-        // designation = (urlMode === 'face-register') ? 'user' : 'detected';
-
-        console.log('button 3 pressed');
-        // console.log('url mode is :', urlMode);
-    });
-
-    button4.on('press', function() {
-        // changeEmail();
-
-        // urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
-        console.log('button 4 pressed');
-        // console.log("email : ", selectedEmail);
-        // console.log('url mode is :', urlMode);
-    });
+    // button2.on('press', function () {
+    //
+    //     // mode = 'button2';
+    //
+    //     // designation = designation === 'user' ? 'detected' : 'user';
+    //
+    //     console.log('button 2 pressed.');
+    //     // console.log('designation : ', designation);
+    //
+    //     // uuidTest = uuidv4();
+    //     // designation = 'friend';
+    //     // camera.opts.output = `${process.env.IMAGE_FOLDER_NAME}/${uuidTest}.jpg`;
+    //     // camera.start();
+    // });
+    //
+    // button3.on('press', function() {
+    //
+    //     // urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
+    //     // designation = (urlMode === 'face-register') ? 'user' : 'detected';
+    //
+    //     console.log('button 3 pressed');
+    //     // console.log('url mode is :', urlMode);
+    // });
+    //
+    // button4.on('press', function() {
+    //     // changeEmail();
+    //
+    //     // urlMode = (urlMode === 'face-register') ? 'face-detect' : 'face-register';
+    //     console.log('button 4 pressed');
+    //     // console.log("email : ", selectedEmail);
+    //     // console.log('url mode is :', urlMode);
+    // });
 });
