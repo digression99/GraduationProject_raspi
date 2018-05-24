@@ -22,6 +22,7 @@
     "raspi-gpio": "^4.0.2",
     "raspi-io": "^8.0.1",
     "raspicam": "^0.2.14",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "dotenv" : "^5.0.1"
   }
 }
