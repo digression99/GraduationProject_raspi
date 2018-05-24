@@ -1,6 +1,6 @@
 const Raspi = require('raspi-io');
 const five = require('johnny-five');
-const gpio = require('raspi-gpio');
+// const gpio = require('raspi-gpio');
 const RaspiCam = require('raspicam');
 const request = require('request');
 const fs = require('fs');
